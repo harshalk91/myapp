@@ -1,0 +1,99 @@
+  [1m[35mSQL (0.6ms)[0m  [1m[35mSET search_path TO public /*application='Myapp'*/[0m
+  [1m[35m (283.3ms)[0m  [1m[35mCREATE DATABASE "myapp_development" ENCODING = 'unicode' /*application='Myapp'*/[0m
+  [1m[35mSQL (0.3ms)[0m  [1m[35mSET search_path TO public /*application='Myapp'*/[0m
+  [1m[35m (140.6ms)[0m  [1m[35mCREATE DATABASE "myapp_test" ENCODING = 'unicode' /*application='Myapp'*/[0m
+  [1m[35m (5.4ms)[0m  [1m[35mCREATE TABLE "schema_migrations" ("version" character varying NOT NULL PRIMARY KEY) /*application='Myapp'*/[0m
+  [1m[35m (1.4ms)[0m  [1m[35mCREATE TABLE "ar_internal_metadata" ("key" character varying NOT NULL PRIMARY KEY, "value" character varying, "created_at" timestamp(6) NOT NULL, "updated_at" timestamp(6) NOT NULL) /*application='Myapp'*/[0m
+  [1m[35m (0.2ms)[0m  [1m[34mSELECT pg_try_advisory_lock(7864839756650184315) /*application='Myapp'*/[0m
+  [1m[36mActiveRecord::SchemaMigration Load (1.6ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC /*application='Myapp'*/[0m
+  [1m[36mActiveRecord::InternalMetadata Load (1.6ms)[0m  [1m[34mSELECT * FROM "ar_internal_metadata" WHERE "ar_internal_metadata"."key" = 'environment' ORDER BY "ar_internal_metadata"."key" ASC LIMIT 1 /*application='Myapp'*/[0m
+  [1m[36mActiveRecord::InternalMetadata Create (3.4ms)[0m  [1m[32mINSERT INTO "ar_internal_metadata" ("key", "value", "created_at", "updated_at") VALUES ('environment', 'development', '2025-01-29 17:16:46.454011', '2025-01-29 17:16:46.454014') RETURNING "key" /*application='Myapp'*/[0m
+Migrating to CreatePosts (20250129171642)
+  [1m[36mTRANSACTION (0.5ms)[0m  [1m[35mBEGIN /*application='Myapp'*/[0m
+  [1m[35m (4.4ms)[0m  [1m[35mCREATE TABLE "posts" ("id" bigserial primary key, "title" character varying, "body" text, "created_at" timestamp(6) NOT NULL, "updated_at" timestamp(6) NOT NULL) /*application='Myapp'*/[0m
+  [1m[36mActiveRecord::SchemaMigration Create (0.7ms)[0m  [1m[32mINSERT INTO "schema_migrations" ("version") VALUES ('20250129171642') RETURNING "version" /*application='Myapp'*/[0m
+  [1m[36mTRANSACTION (0.4ms)[0m  [1m[35mCOMMIT /*application='Myapp'*/[0m
+  [1m[35m (0.2ms)[0m  [1m[34mSELECT pg_advisory_unlock(7864839756650184315) /*application='Myapp'*/[0m
+  [1m[36mActiveRecord::SchemaMigration Load (0.2ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC /*application='Myapp'*/[0m
+Started GET "/posts" for ::1 at 2025-01-29 21:17:03 +0400
+  [1m[36mActiveRecord::SchemaMigration Load (1.4ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC /*application='Myapp'*/[0m
+Processing by PostsController#index as HTML
+  Rendering layout layouts/application.html.erb
+  Rendering posts/index.html.erb within layouts/application
+  [1m[36mPost Load (19.3ms)[0m  [1m[34mSELECT "posts".* FROM "posts" /*action='index',application='Myapp',controller='posts'*/[0m
+  ↳ app/views/posts/index.html.erb:8
+  Rendered posts/index.html.erb within layouts/application (Duration: 21.6ms | GC: 0.0ms)
+  Rendered layout layouts/application.html.erb (Duration: 29.0ms | GC: 0.0ms)
+Completed 200 OK in 154ms (Views: 9.1ms | ActiveRecord: 26.6ms (1 query, 0 cached) | GC: 0.9ms)
+
+
+Started GET "/assets/application-8b441ae0.css" for ::1 at 2025-01-29 21:17:03 +0400
+Started GET "/assets/application-bfcdf840.js" for ::1 at 2025-01-29 21:17:03 +0400
+Started GET "/assets/turbo.min-fae85750.js" for ::1 at 2025-01-29 21:17:03 +0400
+Started GET "/assets/controllers/hello_controller-708796bd.js" for ::1 at 2025-01-29 21:17:03 +0400
+Started GET "/assets/controllers/index-ee64e1f1.js" for ::1 at 2025-01-29 21:17:03 +0400
+Started GET "/assets/stimulus.min-4b1e420e.js" for ::1 at 2025-01-29 21:17:04 +0400
+Started GET "/assets/stimulus-loading-1fc53fe7.js" for ::1 at 2025-01-29 21:17:04 +0400
+Started GET "/assets/controllers/application-3affb389.js" for ::1 at 2025-01-29 21:17:04 +0400
+Started GET "/posts/new" for ::1 at 2025-01-29 21:17:05 +0400
+Processing by PostsController#new as HTML
+  Rendering layout layouts/application.html.erb
+  Rendering posts/new.html.erb within layouts/application
+  Rendered posts/_form.html.erb (Duration: 16.2ms | GC: 0.0ms)
+  Rendered posts/new.html.erb within layouts/application (Duration: 17.2ms | GC: 0.0ms)
+  Rendered layout layouts/application.html.erb (Duration: 17.5ms | GC: 0.0ms)
+Completed 200 OK in 74ms (Views: 17.7ms | ActiveRecord: 8.9ms (0 queries, 0 cached) | GC: 0.0ms)
+
+
+Started POST "/posts" for ::1 at 2025-01-29 21:17:10 +0400
+Processing by PostsController#create as TURBO_STREAM
+  Parameters: {"authenticity_token"=>"[FILTERED]", "post"=>{"title"=>"Test", "body"=>"Hii"}, "commit"=>"Create Post"}
+  [1m[36mTRANSACTION (1.2ms)[0m  [1m[35mBEGIN /*action='create',application='Myapp',controller='posts'*/[0m
+  ↳ app/controllers/posts_controller.rb:27:in `block in create'
+  [1m[36mPost Create (3.7ms)[0m  [1m[32mINSERT INTO "posts" ("title", "body", "created_at", "updated_at") VALUES ('Test', 'Hii', '2025-01-29 17:17:11.017248', '2025-01-29 17:17:11.017248') RETURNING "id" /*action='create',application='Myapp',controller='posts'*/[0m
+  ↳ app/controllers/posts_controller.rb:27:in `block in create'
+  [1m[36mTRANSACTION (1.3ms)[0m  [1m[35mCOMMIT /*action='create',application='Myapp',controller='posts'*/[0m
+  ↳ app/controllers/posts_controller.rb:27:in `block in create'
+Redirected to http://localhost:3000/posts/1
+Completed 302 Found in 47ms (ActiveRecord: 6.2ms (1 query, 0 cached) | GC: 0.0ms)
+
+
+Started GET "/posts/1" for ::1 at 2025-01-29 21:17:11 +0400
+Processing by PostsController#show as TURBO_STREAM
+  Parameters: {"id"=>"1"}
+  [1m[36mPost Load (3.6ms)[0m  [1m[34mSELECT "posts".* FROM "posts" WHERE "posts"."id" = 1 LIMIT 1 /*action='show',application='Myapp',controller='posts'*/[0m
+  ↳ app/controllers/posts_controller.rb:63:in `set_post'
+  Rendering layout layouts/application.html.erb
+  Rendering posts/show.html.erb within layouts/application
+  Rendered posts/_post.html.erb (Duration: 0.3ms | GC: 0.0ms)
+  Rendered posts/show.html.erb within layouts/application (Duration: 2.7ms | GC: 0.0ms)
+  Rendered layout layouts/application.html.erb (Duration: 2.9ms | GC: 0.0ms)
+Completed 200 OK in 39ms (Views: 3.1ms | ActiveRecord: 3.6ms (1 query, 0 cached) | GC: 0.0ms)
+
+
+Started DELETE "/posts/1" for ::1 at 2025-01-29 21:17:14 +0400
+Processing by PostsController#destroy as TURBO_STREAM
+  Parameters: {"authenticity_token"=>"[FILTERED]", "id"=>"1"}
+  [1m[36mPost Load (2.3ms)[0m  [1m[34mSELECT "posts".* FROM "posts" WHERE "posts"."id" = 1 LIMIT 1 /*action='destroy',application='Myapp',controller='posts'*/[0m
+  ↳ app/controllers/posts_controller.rb:63:in `set_post'
+  [1m[36mTRANSACTION (1.2ms)[0m  [1m[35mBEGIN /*action='destroy',application='Myapp',controller='posts'*/[0m
+  ↳ app/controllers/posts_controller.rb:52:in `destroy'
+  [1m[36mPost Destroy (3.1ms)[0m  [1m[31mDELETE FROM "posts" WHERE "posts"."id" = 1 /*action='destroy',application='Myapp',controller='posts'*/[0m
+  ↳ app/controllers/posts_controller.rb:52:in `destroy'
+  [1m[36mTRANSACTION (1.2ms)[0m  [1m[35mCOMMIT /*action='destroy',application='Myapp',controller='posts'*/[0m
+  ↳ app/controllers/posts_controller.rb:52:in `destroy'
+Redirected to http://localhost:3000/posts
+Completed 303 See Other in 49ms (ActiveRecord: 7.8ms (2 queries, 0 cached) | GC: 0.0ms)
+
+
+Started GET "/posts" for ::1 at 2025-01-29 21:17:14 +0400
+Processing by PostsController#index as TURBO_STREAM
+  Rendering layout layouts/application.html.erb
+  Rendering posts/index.html.erb within layouts/application
+  [1m[36mPost Load (1.9ms)[0m  [1m[34mSELECT "posts".* FROM "posts" /*action='index',application='Myapp',controller='posts'*/[0m
+  ↳ app/views/posts/index.html.erb:8
+  Rendered posts/index.html.erb within layouts/application (Duration: 2.6ms | GC: 0.0ms)
+  Rendered layout layouts/application.html.erb (Duration: 2.9ms | GC: 0.0ms)
+Completed 200 OK in 34ms (Views: 1.1ms | ActiveRecord: 1.9ms (1 query, 0 cached) | GC: 0.0ms)
+
+

@@ -1,0 +1,45 @@
+services:
+  db:
+    image: postgres:latest
+    environment:
+      POSTGRES_USER: ${MYAPP_DATABASE_USERNAME}
+      POSTGRES_PASSWORD: ${MYAPP_DATABASE_PASSWORD}
+      POSTGRES_DATABASE: ${MYAPP_DATABASE}
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    ports:
+      - "5432:5432"
+    healthcheck:
+      test: ["CMD", "pg_isready", "-U", "postgres", "-d", "postgres"]
+      interval: 10s
+      retries: 5
+      start_period: 10s
+      timeout: 5s
+
+  web:
+    build: .
+    depends_on:
+      db:
+        condition: service_healthy
+    environment:
+      MYAPP_DATABASE_USERNAME: ${MYAPP_DATABASE_USERNAME}
+      MYAPP_DATABASE_HOST: db
+      MYAPP_DATABASE_PASSWORD: ${MYAPP_DATABASE_PASSWORD}
+    ports:
+      - "3000:3000"
+    volumes:
+      - .:/app
+    command: ["./wait-for-it.sh", "db:5432", "--", "rails", "server", "-b", "0.0.0.0"]
+
+  nginx:
+    image: nginx:latest
+    depends_on:
+      - web
+    volumes:
+      - ./nginx.conf:/etc/nginx/nginx.conf
+    ports:
+      - "80:80"
+    links:
+      - web
+volumes:
+  postgres_data:

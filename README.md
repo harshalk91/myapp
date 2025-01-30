@@ -1,24 +1,30 @@
-# README
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
+# Sample Ruby on Rails Applicaton
 
-Things you may want to cover:
+A simple Ruby on Rails application with postgres databse
 
-* Ruby version
+## Deployment
 
-* System dependencies
+To deploy this project locally
 
-* Configuration
+Pre-rquisites ( Intall below packages)
 
-* Database creation
+    1. docker cli
+    2. git
 
-* Database initialization
 
-* How to run the test suite
+Set environment variables
+```
+export MYAPP_DATABASE_USERNAME=xxx
+export MYAPP_DATABASE_PASSWORD=xxx
+export MYAPP_DATABASE=xxx
+```
 
-* Services (job queues, cache servers, search engines, etc.)
+```bash
+  docker-compose up --build
+```
 
-* Deployment instructions
 
-* ...
+How to access?
+
+[http://localhost:3000](http://localhost)

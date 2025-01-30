@@ -8,4 +8,4 @@ default: &default
 
 development:
   <<: *default
-  database: myapp_development
+  database: <%= ENV['MYAPP_DATABASE'] %>
